@@ -1,12 +1,20 @@
 sudo apt update -y
-git clone https://github.com/vladimirmukhin/instagram-mern.git
 sudo apt install npm -y
+sudo apt install nginx -y
 
+git clone https://github.com/vladimirmukhin/instagram-mern.git
+
+rm -rf /root/instagram-mern/backend
 cd /root/instagram-mern/frontend
+mkdir server_logs
 npm install # download all dependencies
 npm run build
 
-sudo apt install nginx -y
+mkdir /var/www/hungpham.link
+cp /root/instagram-mern/* /var/www/hungpham.link/
+
+sudo chown -R www-data.www-data /var/www/hungpham.link/
+sudo chmod -R 755 /var/www/hungpham.link/
 
 echo "" > nginx.conf
 
@@ -58,10 +66,10 @@ server {
     listen [::]:80 default_server;
     server_name  www.hungpham.link;
 
-    access_log /root/instagram-mern/frontend/server_logs/host.access.log main;
+    access_log /var/www/hungpham.link/frontend/server_logs/host.access.log main;
 
     location / {
-        root   /root/instagram-mern/frontend/build;
+        root   /var/www/hungpham.link/frontend/build;
         index  index.html index.htm;
         try_files \$uri /index.html;
         add_header X-Frame-Options SAMEORIGIN;
