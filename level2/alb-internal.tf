@@ -13,6 +13,13 @@ module "internal_sg" {
       cidr_blocks = "0.0.0.0/0"
     },
     {
+      from_port   = 27017
+      to_port     = 27017
+      protocol    = "tcp"
+      description = "Mongo DB"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"

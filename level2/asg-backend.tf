@@ -55,7 +55,7 @@ module "backend-autoscaling" {
   instance_type   = var.instance_type
   key_name        = var.key_name
   security_groups = [module.backend_sg.security_group_id]
-  user_data       = file("${path.module}/back-end.sh")
+  user_data       = filebase64("${path.module}/back-end.sh")
 
   create_iam_instance_profile = true
   iam_role_name               = var.area_code
