@@ -1,3 +1,4 @@
+#!/bin/bash
 sudo apt update -y
 sudo apt install npm -y
 
@@ -6,6 +7,6 @@ mv /root/instagram-mern/backend/config/config.env.example /root/instagram-mern/b
 
 #edit conf.enf file
 
-cd /root/instagram-mern
-npm install
-npm start
+# cd /root/instagram-mern
+# npm install
+# npm start
