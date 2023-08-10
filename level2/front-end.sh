@@ -18,11 +18,12 @@ cp -r /root/instagram-mern/* /var/www/hungpham.link/
 sudo chown -R www-data.www-data /var/www/hungpham.link/
 sudo chmod -R 755 /var/www/hungpham.link/
 
-# the log_format cannot be injected to the file nginx.conf
+rm -f /etc/nginx/nginx.conf
+wget -0 nginx.conf https://github.com/hungphamLTC/MERN-stack-deployment-on-AWS/blob/mern-stack-deployment/server-configuration/nginx.conf
+sudo mv nginx.conf /etc/nginx/
 
-echo "" > /etc/nginx/nginx.conf
-
-sudo touch /etc/nginx/conf.d/default.conf
+wget -O default.conf https://raw.githubusercontent.com/hungphamLTC/MERN-stack-deployment-on-AWS/mern-stack-deployment/server-configuration/default.conf
+sudo mv default.conf /etc/nginx/conf.d/
 
 sudo nginx -t # check the syntax
 sudo service nginx restart
