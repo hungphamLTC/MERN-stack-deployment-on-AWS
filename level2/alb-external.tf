@@ -26,6 +26,13 @@ module "external_sg" {
       cidr_blocks = "0.0.0.0/0"
     },
     {
+      from_port   = 3000
+      to_port     = 3000
+      protocol    = "tcp"
+      description = "localhost"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"
@@ -61,7 +68,7 @@ module "elb" {
     {
       name_prefix          = var.area_code
       backend_protocol     = "HTTP"
-      backend_port         = 80
+      backend_port         = 3000
       deregistration_delay = 10
 
       health_check = {
@@ -90,7 +97,7 @@ module "elb" {
 
   http_tcp_listeners = [
     {
-      port        = 80
+      port        = 3000
       protocol    = "HTTP"
       action_type = "redirect"
       redirect = {
