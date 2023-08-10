@@ -68,7 +68,7 @@ module "elb" {
     {
       name_prefix          = var.area_code
       backend_protocol     = "HTTP"
-      backend_port         = 3000
+      backend_port         = 80
       deregistration_delay = 10
 
       health_check = {
@@ -97,7 +97,7 @@ module "elb" {
 
   http_tcp_listeners = [
     {
-      port        = 3000
+      port        = 80
       protocol    = "HTTP"
       action_type = "redirect"
       redirect = {

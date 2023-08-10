@@ -22,7 +22,7 @@ sudo chmod -R 755 /var/www/hungpham.link/
 
 echo "" > /etc/nginx/nginx.conf
 
-sudo sh -c 'cat << EOF >> /etc/nginx/nginx.conf
+echo '
 user ubuntu;
 worker_processes  1;
 
@@ -37,9 +37,9 @@ http {
     include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
 
-    log_format  main  '\$remote_addr - \$remote_user [\$time_local] "\$request" '
-                      '\$status \$body_bytes_sent "\$http_referer" '
-                      '"\$http_user_agent" "\$http_x_forwarded_for"';
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
 
     access_log  /var/log/nginx/access.log  main;
 
@@ -59,11 +59,11 @@ http {
 
     include /etc/nginx/conf.d/*.conf;
 }
-EOF'
+' | sudo tee -a /etc/nginx/nginx.conf > /dev/null
 
 sudo touch /etc/nginx/conf.d/default.conf
 
-sudo sh -c 'cat << EOF >> /etc/nginx/conf.d/default.conf
+echo '
 server {
     #listen       80;
     listen 80 default_server;
@@ -72,10 +72,14 @@ server {
 
     access_log /var/www/hungpham.link/frontend/server_logs/host.access.log main;
 
+    location /api {
+        proxy_pass http://internal-internal-572432185.us-east-1.elb.amazonaws.com;
+    }
+
     location / {
         root   /var/www/hungpham.link/frontend/build;
         index  index.html index.htm;
-        try_files \$uri /index.html;
+        try_files $uri /index.html;
         add_header X-Frame-Options SAMEORIGIN;
         add_header X-Content-Type-Options nosniff;
         add_header X-XSS-Protection "1; mode=block";
@@ -93,7 +97,7 @@ server {
         deny  all;
     }
 }
-EOF'
+' | sudo tee -a /etc/nginx/conf.d/default.conf > /dev/null
 
 sudo nginx -t # check the syntax
 sudo service nginx restart
