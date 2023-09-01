@@ -56,6 +56,7 @@ module "autoscaling" {
   health_check_grace_period = 400
   health_check_type         = "EC2"
   vpc_zone_identifier       = data.terraform_remote_state.level1.outputs.private_subnet_id
+  
   target_group_arns         = module.elb.target_group_arns
   force_delete              = true
 

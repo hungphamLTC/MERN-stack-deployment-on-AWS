@@ -26,13 +26,6 @@ module "external_sg" {
       cidr_blocks = "0.0.0.0/0"
     },
     {
-      from_port   = 3000
-      to_port     = 3000
-      protocol    = "tcp"
-      description = "localhost"
-      cidr_blocks = "0.0.0.0/0"
-    },
-    {
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"
@@ -99,12 +92,7 @@ module "elb" {
     {
       port        = 80
       protocol    = "HTTP"
-      action_type = "redirect"
-      redirect = {
-        port        = "443"
-        protocol    = "HTTPS"
-        status_code = "HTTP_301"
-      }
+      action_type = "forward"
     }
   ]
 }

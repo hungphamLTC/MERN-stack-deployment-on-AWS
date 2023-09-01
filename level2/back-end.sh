@@ -6,7 +6,7 @@ sudo git clone https://github.com/vladimirmukhin/instagram-mern.git /home/ubuntu
 
 mv /home/ubuntu/instagram-mern/backend/config/config.env.example /home/ubuntu/instagram-mern/backend/config/config.env
 
-#edit conf.enf file
+#edit conf.env file
 
 # cd /home/ubuntu/instagram-mern
 # npm install
