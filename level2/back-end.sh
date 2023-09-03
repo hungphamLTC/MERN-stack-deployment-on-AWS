@@ -8,6 +8,6 @@ mv /home/ubuntu/instagram-mern/backend/config/config.env.example /home/ubuntu/in
 
 #edit conf.env file
 
-# cd /home/ubuntu/instagram-mern
-# npm install
-# npm start
+cd /home/ubuntu/instagram-mern
+npm install
+npm start
